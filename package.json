@@ -1,0 +1,57 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "main": "main.js",
+  "author": {
+    "name": "Jane Doe",
+    "email": "jane@example.com"
+  },
+  "homepage": "https://github.com/your-username/my-electron-app",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:renderer\" \"wait-on http://localhost:5173 && electron .\"",
+    "dev:renderer": "cd renderer && npm run dev",
+    "build": "cd renderer && npm run build",
+    "postinstall": "electron-builder install-app-deps",
+    "package": "npm run build && electron .",
+    "dist": "npm run build && electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^24.13.1",
+    "concurrently": "^8.0.1",
+    "wait-on": "^7.0.1"
+  },
+  "build": {
+    "appId": "com.example.myapp",
+    "productName": "MyElectronApp",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "main.js",
+      "renderer/dist/**/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "category": "Utility",
+      "maintainer": "Jane Doe <jane@example.com>"
+    }
+  }
+}
